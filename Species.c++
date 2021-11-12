@@ -98,6 +98,7 @@ Species::Species(std::string const& species_filename, std::string const& species
 	{
 		dispersalProbaThreshold = speciesParams_dispersal.get_val<double>("dispersalProbaThreshold");
 		min_dispersalProba = true;
+		std::cout << "Using min dispersal probability" << std::endl;
 	}
 
 	if (keysToRead.find("refKernel_doi") != std::string::npos)
@@ -113,6 +114,7 @@ Species::Species(std::string const& species_filename, std::string const& species
 	{
 		dispersalDistThreshold = speciesParams_dispersal.get_val<double>("dispersalDistThreshold");
 		max_dispersalDist = true;
+		std::cout << "Using max dispersal distance" << std::endl;
 	}
 
 	if (keysToRead.find("twoDt_a") != std::string::npos)
@@ -322,9 +324,7 @@ void Species::growth_callback(const alglib::real_1d_array &y, double x, alglib::
 		x = time
 		y = function to find dy/dx = growth_callback(x, y(x))
 
-		It is assumed that size is unscaled.
 		It is assumed that the tree is in the understorey, i.e., canopy status = false
-		It is assumed that temperature and precipitation are at average, i.e. = 0 when scaled
 	*/
 
 	// Growth function
