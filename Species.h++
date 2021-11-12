@@ -80,7 +80,7 @@ class Species
 		bool isDirac() const;
 
 		// others
-		static void growth_callback(const alglib::real_1d_array &y, double x, alglib::real_1d_array &dy);
+		static void growth_callback(const alglib::real_1d_array &y, double x, alglib::real_1d_array &dy, void *ptr);
 		void printName(std::ostream& os) const;
 		std::string getName() const;
 
