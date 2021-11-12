@@ -2,6 +2,9 @@
 #ifndef DISPERSAL_C
 #define DISPERSAL_C
 
+//* Maybe a good oportunity to cease to switch from ALGLIB to Boost!
+//? https://www.boost.org/doc/libs/1_77_0/libs/math/doc/html/quadrature.html
+
 // My headers
 #include "Dispersal.h++"
 
@@ -61,7 +64,7 @@ void landscapeIntegrals(Dispersal& disp)
 	// Values for integral
 	pt2Object = (void*) &disp;
 
-	double value2d(0), integPatch(0);
+	double integPatch(0);
 	disp.m_totalIntegral = 0;
 
 	alglib::autogkstate ss;
@@ -72,8 +75,8 @@ void landscapeIntegrals(Dispersal& disp)
 		// Reset integPatch for current patch
 		integPatch = 0;
 
-		// Coordinates and distance, row = x = latitude
-		y1 = row*deltaLon;
+		// Coordinates and distance, row = y = latitude
+		y1 = row*deltaLat;
 		Distance distanceToZero(0, 0, row, 0, deltaLat, deltaLon);
 		euclideanDistanceToZero = sqrt(y1*y1);
 
@@ -81,9 +84,7 @@ void landscapeIntegrals(Dispersal& disp)
 
 		alglib::autogksmooth(y1, y2, ss);
 		alglib::autogkintegrate(ss, Dispersal::wrapper_r_integral);
-		alglib::autogkresults(ss, value2d, reprep);
-
-		integPatch += value2d;
+		alglib::autogkresults(ss, integPatch, reprep);
 		
 		disp.m_totalIntegral += integPatch;
 
