@@ -6,12 +6,6 @@ place. I organise it:
 	- Climatic variables
 	- Coordinates and projection string (in the proj4string format)
 
-It contains:
-	- annual_mean_temperature;
-	- annual_precipitation;
-	- min_temperature_of_coldest_month;
-	- precipitation_of_driest_quarter;
-
 I list the functions here, but describe them in the associated c++ file:
 	- One constructors
 	- Overloading for ease
