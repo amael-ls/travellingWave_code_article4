@@ -208,7 +208,7 @@ double Species::K(double delta_lon, double delta_lat) const
 		proba = 1.0/(M_PI*30.0*30.0) * std::exp(-distance*distance/(30.0*30.0));
 
 	if (refKernel_doi == "gaussian1D") // Gaussian, Cousens2008, p. 82, with a = 30
-		proba = proba = 2.0/(30.0*30.0) * distance * std::exp(-distance*distance/(30.0*30.0));
+		proba = 2.0/(30.0*30.0) * distance * std::exp(-distance*distance/(30.0*30.0));
 
 	if (refKernel_doi == "dirac")
 		proba = (distance == 0) ? 1 : 0;
