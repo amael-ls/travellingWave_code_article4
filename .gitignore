@@ -1,4 +1,7 @@
-./popDyn/
-./summary/
-./demo.out
-./.vscode
+popDyn/
+summary/
+demo.out
+.vscode
+*.pdf
+*.m
+*.sh
