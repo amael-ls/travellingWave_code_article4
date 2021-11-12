@@ -115,14 +115,10 @@ std::vector<double> Cohort::ODE_II(double const s_star, Environment const& env)
 		mu = y[1], averaged size (the i-state)
 		This function represents the dynamics of a cohort along its characteristics
 	*/
-	double temperature_growth = env.annual_mean_temperature;
-	double precipitation_growth = env.annual_precipitation;
-	double temperature_mortality = env.min_temperature_of_coldest_month;
-	double precipitation_mortality = env.precipitation_of_driest_quarter;
 
 	std::vector<double> y (2);
-	y[0] = -m_species->d(m_mu, s_star, temperature_mortality, precipitation_mortality) * m_lambda;
-	y[1] = m_species->v(m_mu, s_star, temperature_growth, precipitation_growth);
+	y[0] = -m_species->d(m_mu, s_star) * m_lambda;
+	y[1] = m_species->v(m_mu, s_star);
 
 	return y;
 }
@@ -139,17 +135,12 @@ std::vector<double> Cohort::ODE_V(double const s_star, Environment const& env, d
 
 	double pi = m_lambda*m_mu;
 
-	double temperature_growth = env.annual_mean_temperature;
-	double precipitation_growth = env.annual_precipitation;
-	double temperature_mortality = env.min_temperature_of_coldest_month;
-	double precipitation_mortality = env.precipitation_of_driest_quarter;
+	y[0] = -m_species->d(0, s_star) * m_lambda -
+		m_species->dd_ds(0, s_star) * pi + popReprod;
 
-	y[0] = -m_species->d(0, s_star, temperature_mortality, precipitation_mortality) * m_lambda -
-		m_species->dd_ds(0, s_star, temperature_mortality, precipitation_mortality) * pi + popReprod;
-
-	y[1] = m_species->v(0, s_star, temperature_growth, precipitation_growth) *
-		m_lambda + m_species->dv_ds(0, s_star, temperature_growth, precipitation_growth) * pi -
-		m_species->d(0, s_star, temperature_mortality, precipitation_mortality) * pi;
+	y[1] = m_species->v(0, s_star) *
+		m_lambda + m_species->dv_ds(0, s_star) * pi -
+		m_species->d(0, s_star) * pi;
 
 	return y;
 }
