@@ -1,0 +1,30 @@
+
+#### Files
+climate_file = landscapeData_acsa.txt
+species_filenames = Acer_saccharum.txt
+
+#### Paths
+species_path = ../createParams/
+initPath = ../createIC/randomInitialCondition/
+initFilenamePattern = ic_
+summaryFilePath = ./summary/
+popDynFilePath = ./popDyn/
+
+#### Patterns filenames
+summaryFilePattern = su_
+popDynFilePattern = pd_
+
+#### Time simulation
+t0 = 0
+tmax = 2000
+nIter = 4001
+
+#### Saving options
+saveOnlyLast = true
+freqSave = 20
+
+#### Size population
+maxCohorts = 500
+
+#### Order landscape
+rasterOrder_Rlang = true

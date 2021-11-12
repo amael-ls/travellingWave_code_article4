@@ -1,0 +1,9 @@
+nRow=200
+nCol=1
+path=../createLandscape/climateOrfordRun/climate_200x1_acsa/
+delimiter= = 
+filenamePattern=climate_
+rasterOrder_Rlang=true
+deltaLon=20
+deltaLat=20.10989
+distance=euclidean
