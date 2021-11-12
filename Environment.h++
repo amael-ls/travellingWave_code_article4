@@ -64,14 +64,6 @@ class Environment
 		// File name
 		std::string m_fileName;
 
-		// Growth climate variables
-		double annual_mean_temperature;
-		double annual_precipitation;
-
-		// Mortality climate variables
-		double min_temperature_of_coldest_month;
-		double precipitation_of_driest_quarter;
-
 		// Initially populated
 		bool m_initPopulated;
 
@@ -84,7 +76,6 @@ class Environment
 		int m_col;
 		double longitude;
 		double latitude;
-		std::string proj4string;
 		std::string m_distance;
 };
 
