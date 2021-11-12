@@ -131,7 +131,7 @@ Species::Species(std::string const& species_filename, std::string const& species
 /******        Demography        ******/
 /**************************************/
 // Individual growth rate, s is the diameter, s_star is dbh_star (obtained from height_star)
-double Species::v(double s, double const s_star, double temp, double precip) const
+double Species::v(double s, double const s_star) const
 {
 	/*
 		The values are for Acer saccharum (mesic soil) from Purves 2008:
@@ -153,7 +153,7 @@ double Species::v(double s, double const s_star, double temp, double precip) con
 }
 
 // Individual death rate, s is the diameter, s_star is dbh_star (obtained from height_star)
-double Species::d(double s, double const s_star, double temp, double precip) const
+double Species::d(double s, double const s_star) const
 {
 	/*
 		The values are for Acer saccharum (mesic soil) from Purves 2008:
@@ -167,13 +167,13 @@ double Species::d(double s, double const s_star, double temp, double precip) con
 }
 
 // Differentiate individual growth rate, s is the diameter, s_star is dbh_star (obtained from height_star)
-double Species::dv_ds(double s, double const s_star, double temp, double precip) const
+double Species::dv_ds(double s, double const s_star) const
 {
 	return 0;
 }
 
 // Differentiate individual mortality rate, s is the diameter, s_star is dbh_star (obtained from height_star)
-double Species::dd_ds(double s, double const s_star, double temp, double precip) const
+double Species::dd_ds(double s, double const s_star) const
 {
 	return 0;
 }

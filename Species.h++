@@ -68,10 +68,10 @@ class Species
 		friend bool operator<(Species const& species1, Species const& species2);
 
 		// Demographic functions
-		double v(double s, double const s_star, double temp, double precip) const;
-		double d(double s, double const s_star, double temp, double precip) const;
-		double dv_ds(double s, double const s_star, double temp, double precip) const;
-		double dd_ds(double s, double const s_star, double temp, double precip) const;
+		double v(double s, double const s_star) const;
+		double d(double s, double const s_star) const;
+		double dv_ds(double s, double const s_star) const;
+		double dd_ds(double s, double const s_star) const;
 
 		// Dispersal
 		double K(double const distance) const;
