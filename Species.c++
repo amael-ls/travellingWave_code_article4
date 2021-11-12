@@ -19,30 +19,14 @@ Species::Species(std::string const& species_filename, std::string const& species
 	m_speciesName = speciesParams.get_val<std::string>("species");
 
 	// Create the files' name for a given species
-	std::string file_G = species_path + m_speciesName;
-	file_G.append("_G.txt");
-
-	std::string file_M = species_path + m_speciesName;
-	file_M.append("_M.txt");
-
 	std::string file_allometries = species_path + m_speciesName;
 	file_allometries.append("_allometries.txt");
-
-	std::string file_scaling_G = species_path + m_speciesName;
-	file_scaling_G.append("_scaling_G.txt");
-
-	std::string file_scaling_M = species_path + m_speciesName;
-	file_scaling_M.append("_scaling_M.txt");
 
 	std::string file_scaling_dispersal = species_path + m_speciesName;
 	file_scaling_dispersal.append("_dispersal.txt");
 
 	// Load parameters from files
-	par::Params speciesParams_G(file_G.c_str(), delim);
-	par::Params speciesParams_M(file_M.c_str(), delim);
 	par::Params speciesParams_allometries(file_allometries.c_str(), delim);
-	par::Params speciesParams_scaling_G(file_scaling_G.c_str(), delim);
-	par::Params speciesParams_scaling_M(file_scaling_M.c_str(), delim);
 	par::Params speciesParams_dispersal(file_scaling_dispersal.c_str(), delim);
 
 	// Allometry parameters (height from dbh)
