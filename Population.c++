@@ -286,7 +286,7 @@ void Population::seedProduction(double const height_star)
 
 	while (cohort_it != m_cohortsVec.cend() && cohort_it->m_height > limiting_size) // sum_l F * lambda (eq 27 article EBT, and eq 4 article Travelling Wave), sum_k is managed by Forest
 	{
-		popReprod += 0.071 * cohort_it->m_lambda; // In this case fecundity = 1.2 if s >= limiting_size
+		popReprod += 1.2 * cohort_it->m_lambda; // In this case fecundity = 1.2 if s >= limiting_size
 		++cohort_it;
 	}
 

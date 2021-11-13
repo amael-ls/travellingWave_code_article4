@@ -72,7 +72,7 @@ Species::Species(std::string const& species_filename, std::string const& species
 		throw Except_Species(m, *(ytbl[1]));
 	
 	minDbhReproduction = *(ytbl[1]);
-	minHeightReproduction = 6;
+	minHeightReproduction = 0; //! This is to try
 
 	// Dispersal parameters, not necessarily all provided by the user. Note: I could have used a map to optimise the coding...
 	keysToRead = speciesParams_dispersal.get_val<std::string>("keysToRead");
