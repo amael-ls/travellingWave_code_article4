@@ -182,7 +182,7 @@ void Forest::patchDynamics(double const t, double const delta_t)
 	/*  Explanation lambda functions: https://docs.microsoft.com/en-us/cpp/cpp/lambda-expressions-in-cpp?view=vs-2019
 		Square brackets [] are for the capture clause, i.e., how to access variables in the enclosing scope.
 		In my case, the variables are t and delta_t. Because I put [=], I access them by value.
-		If I had put [&], they were be accessed by reference. I could have put an hybrid such as [&t, delta_t]
+		If I had put [&], they would be accessed by reference. I could have put an hybrid such as [&t, delta_t]
 	*/
 }
 
@@ -205,25 +205,17 @@ void Forest::recruitment(double const t, double const delta_t)
 	[&] (Patch& patch){
 		for (sp_it = m_speciesList.cbegin(); sp_it != m_speciesList.cend(); ++sp_it)
 		{
-			std::cout << "Neighbours start for patch " << (patch.m_env).m_patchId << std::endl;
 			// Get neighbours, and store it in bounding box (using reference '&')
 			neighbours_indices((patch.m_env).m_patchId, boundingBox, *sp_it); // boundingBox = {topLeft_r, topLeft_c, topRight_c, bottomLeft_r};
-			std::cout << "Neighbours end" << std::endl;
-			for (std::vector<unsigned int>::const_iterator it = boundingBox.cbegin(); it != boundingBox.cend(); ++it)
-				std::cout << "it: " << *it << std::endl;
 
 			// Cover all the sources within neighbours to collect dispersed seeds
 			for (unsigned int row = boundingBox[0]; row <= boundingBox[3]; ++row) // Important: less than or equal to (<=)
 			{
-				std::cout << "Row = " << row << std::endl;
 				for (unsigned int col = boundingBox[1]; col <= boundingBox[2]; ++col) // Important: less than or equal to (<=)
 				{
-					std::cout << "Col = " << col << std::endl;
 					sourcePatch = &m_patchVec[row*m_nCol_land + col];
-					std::cout << "Coucou 1" << std::endl;
 					// Compute dispersal from source to target, and update the seed banks:
 					patch.dispersal(sourcePatch, *sp_it, (m_map_dispersal.at(*sp_it)).m_map_distance_integral, m_deltaLat, m_deltaLon);
-					std::cout << "Coucou 2" << std::endl;
 				}
 			}
 		}
@@ -255,12 +247,9 @@ void Forest::dynamics()
 		{
 			t = m_t0 + (iter - 1)*delta_t; // iter starts at 1, but remember explicit Euler y_{n + 1} = y_n + delta_t f(t_n, y_n)
 			this->patchDynamics(t, delta_t);
-			std::cout << "Patch dyn ok" << std::endl;
 			this->recruitment(t, delta_t);
-			std::cout << "Recruitment ok" << std::endl;
 
 			this->summary();
-			std::cout << "Summary ok" << std::endl;
 
 			if (iter % m_freqSave == 0)
 				this->saveForest();
@@ -272,16 +261,12 @@ void Forest::dynamics()
 	{
 		for (unsigned int iter = 1; iter < m_nIter; ++iter) // time loop, starts at 1 because the initial condition is considered the 0th iteration
 		{
-			std::cout << "Saved last only" << std::endl;
 			t = m_t0 + (iter - 1)*delta_t; // iter starts at 1, but remember explicit Euler y_{n + 1} = y_n + delta_t f(t_n, y_n)
 			this->patchDynamics(t, delta_t);
-			std::cout << "Patch dyn ok" << std::endl;
 			
 			this->recruitment(t, delta_t);
-			std::cout << "Recruitment ok" << std::endl;
 
 			this->summary();
-			std::cout << "Summary ok" << std::endl;
 
 		}
 		this->saveForest();
