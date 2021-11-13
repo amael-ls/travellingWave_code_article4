@@ -2,7 +2,7 @@
 #ifndef DISPERSAL_C
 #define DISPERSAL_C
 
-//* Maybe a good oportunity to cease to switch from ALGLIB to Boost!
+//* Maybe a good opportunity to cease to switch from ALGLIB to Boost!
 //? https://www.boost.org/doc/libs/1_77_0/libs/math/doc/html/quadrature.html
 
 // My headers
