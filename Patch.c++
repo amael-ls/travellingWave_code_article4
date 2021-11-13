@@ -84,20 +84,28 @@ void Patch::populationDynamics(double const t, double const delta_t)
 void Patch::dispersal(Patch* sourcePatch, Species* species,
 	std::map<Distance, double> const& distToIntegral, double const deltaLat, double const deltaLon)
 {
-	std::cout << "patch::dispersal entering" << std::endl;
 	Distance dist(m_env, sourcePatch->m_env, deltaLat, deltaLon);
-	std::cout << "Dispersal, dist done" << std::endl;
-	std::cout << dist << std::endl;
+
 	if (distToIntegral.find(dist) == distToIntegral.end())
-		std::cout << "It has NOT been found" << std::endl;
+		return; // This is to exit the function, the patch is out of scope from the source patch
+	
+	// withdrawn seeds from source = local production of source times amount dispersed by K
+	double withdrawnSeeds = ((sourcePatch->m_pop_map).at(species)).m_localProducedSeeds * distToIntegral.at(dist);
+	(m_pop_map.at(species)).m_localSeedBank += withdrawnSeeds;
+	((sourcePatch->m_pop_map).at(species)).m_localProducedSeeds -= withdrawnSeeds;
+}
+
+void Patch::dispersal(Patch* sourcePatch, Species* species, double const& amount)
+{
+	//! This could be used in Forest, and would be called only if the distance exists (i.e., 'amount' could be computed)
+	// Distance dist(m_env, sourcePatch->m_env, deltaLat, deltaLon);
+	// std::map<Distance, double> const& distToIntegral
+	// amount = distToIntegral.at(dist)
 
 	// withdrawn seeds from source = local production of source times amount dispersed by K
-	double withdrawnSeeds = ((sourcePatch->m_pop_map).at(species)).m_localProducedSeeds; // * distToIntegral.at(dist);
-	std::cout << "Dispersal, withdrawnSeeds" << std::endl;
+	double withdrawnSeeds = ((sourcePatch->m_pop_map).at(species)).m_localProducedSeeds * amount;
 	(m_pop_map.at(species)).m_localSeedBank += withdrawnSeeds;
-	std::cout << "Dispersal, seedbank" << std::endl;
 	((sourcePatch->m_pop_map).at(species)).m_localProducedSeeds -= withdrawnSeeds;
-	std::cout << "Dispersal, exiting" << std::endl;
 }
 
 void Patch::dispersal(Patch* sourcePatch, Species* species, double const totalIntegral,
@@ -114,7 +122,6 @@ void Patch::dispersal(Patch* sourcePatch, Species* species, double const totalIn
 void Patch::recruitment(Species* species, double const t, double const delta_t)
 {
 	double const dbh_star = std::exp(1/species->b*(std::log10(m_height_star) - species->a)*std::log(10));
-	std::cout << "Patch::recruitment running" << std::endl;
 	(m_pop_map.at(species)).recruitment(t, delta_t, dbh_star, m_env, m_isPopulated);
 }
 
