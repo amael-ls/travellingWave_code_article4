@@ -240,10 +240,7 @@ void Population::recruitment(double const t, double const delta_t, double const 
 	++m_currentIter;
 
 	if (recruitment_it >= m_cohortsVec.end())
-	{
-		std::cout << "Error vec.end" << std::endl;
 		throw(Except_Population(m_maxCohorts, m_nonZeroCohort, t));
-	}
 
 	// Aging boundary cohort
 	recruitment_it->euler(t, delta_t, dbh_star, env, m_localSeedBank, &Cohort::ODE_V);
@@ -251,7 +248,6 @@ void Population::recruitment(double const t, double const delta_t, double const 
 	// If it reaches the threshold, the boundary cohort is released within Omega
 	if (recruitment_it->m_mu > m_delta_s) // recruitment_it->m_mu > 0
 	{
-		std::cout << "Releasing start" << std::endl;
 		++m_nonZeroCohort;
 		recruitment_it->m_birthIteration = m_currentIter;
 		// Initialise properly the dbh (see equations 16 and 17 paper)
@@ -260,8 +256,6 @@ void Population::recruitment(double const t, double const delta_t, double const 
 		
 		if (!isPopulated) // If isPopulated is originally false, change it to true due to the newly created cohort
 			isPopulated = true;
-		
-		std::cout << "Releasing end" << std::endl;
 	}
 
 	// Reset local seed bank to 0 (they have been transferred to the boundary condition by euler and ODE_V)
