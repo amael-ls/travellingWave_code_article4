@@ -286,8 +286,8 @@ void Forest::neighbours_indices(unsigned int const target, std::vector<unsigned 
 	else
 		maxDispersalDist = 100; // default value
 
-	unsigned int influenceRadius_x = std::ceil(maxDispersalDist/m_deltaLon);
-	unsigned int influenceRadius_y = std::ceil(maxDispersalDist/m_deltaLat);
+	unsigned int influenceRadius_x = std::ceil(maxDispersalDist/m_deltaLon); // Number of plots covered in the x-direction
+	unsigned int influenceRadius_y = std::ceil(maxDispersalDist/m_deltaLat); // Number of plots covered in the y-direction
 
 	unsigned int col_ind = target % m_nCol_land;
 	unsigned int row_ind = (int) (target - col_ind)/m_nCol_land;
@@ -298,7 +298,7 @@ void Forest::neighbours_indices(unsigned int const target, std::vector<unsigned 
 	topLeft_r = row_ind;
 	bottomLeft_r = row_ind;
 
-	if (influenceRadius_x >= m_deltaLon) // If more than itself is covered in longitude direction
+	if (influenceRadius_x >= 1) // If more than one plot is covered in longitude direction
 	{
 		if (col_ind < influenceRadius_x) // To avoid overflows of unsigned int
 			topLeft_c = 0;
@@ -308,7 +308,7 @@ void Forest::neighbours_indices(unsigned int const target, std::vector<unsigned 
 		topRight_c = std::min(col_ind + influenceRadius_x, m_nCol_land);
 	}
 
-	if (influenceRadius_y >= m_deltaLat) // If more than itself is covered in latitude direction
+	if (influenceRadius_y >= 1) // If more than one plot is covered in latitude direction
 	{
 		if (row_ind < influenceRadius_y) // To avoid overflows of unsigned int
 			topLeft_r = 0;
